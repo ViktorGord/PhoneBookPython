@@ -4,9 +4,10 @@ print("Телефонный справочник. Краткое руковод�
      "1. show (вывести телефонный справочник);\n"
      "2. new (добавить новую запись в справочник);\n"
      "3. search (поиск по справочнику);\n"
-     "4. change (скорректировать запись в справочнике);\n"
-     "5. del (удалить запись из справочника);\n"
-     "6. export (выгрузить справочник во внешний файл).\n")
+     "4. export (выгрузить справочник во внешний файл);\n"
+     "5. import (импортировать данные в телефонный справочник);\n"
+     "6. exit (выход из справочника);\n"
+     )
 while True:
     command = input("Введите команду: ")
     if command =="show": 
@@ -16,16 +17,28 @@ while True:
             for surname, values in phonebook.items():
                 print(name, values)
     elif command =="new":
-        name = input("Введите имя абонента: ")
-        surname = input("Введите фамилию абонента: ")
-        phonenum = input(f"Введите телефон {surname} {name}: ")
-        person_info = {'surname': {surname}, 'name': {name}, 'phonenumber': {phonenum}}
+        name = input("Введите имя абонента: ")#имя
+        patronymic = input("Введите отчество абонента: ")#отчество
+        surname = input("Введите фамилию абонента: ")#фамилия  
+        phonenum = input(f"Введите телефон {surname} {name}: ")#номер телефона
+        person_info = {'surname': {surname}, 'name': {name}, 'patronymic': {patronymic}, 'phonenumber': {phonenum}}
         phonebook[surname] = person_info 
         print()
     elif command =="search":
         caller = input("Введите фамилию абонента: ") 
         if caller in phonebook:
-                print(phonebook[caller])
+            print(phonebook[caller])
         else:
-             print(f"Абонент {caller} в справочнике не найден")
+            print(f"Абонент {caller} в справочнике не найден")
+    elif command =="export":
+        with open ("/Users/viktor/Desktop/Learn/GeekBrains/5. Python/PhoneBook/phonebook_Viktor.json", "w", encoding="utf-8") as outfile:
+            json.dump(phonebook, outfile, indent=4)#через dump "перегоняем" из Python в строку JSON и кладем всю эту иторию в outfile
+            print("Файл успешно экспортирован")
+    elif command =="import": 
+        with open ("/Users/viktor/Desktop/Learn/GeekBrains/5. Python/PhoneBook/phonebook_Viktor.json", "r", encoding="utf-8") as inputfile:
+            infjson = inputfile.read()
+            phonebook = json.loads(infjson)#через loads "перегоняем" из JSON в Python 
+            print("Файл успешно импортирован") 
+    elif command =="exit":  
+        exit()
 else: print("Такой команды не существует. Введите команду из краткого руководства")
