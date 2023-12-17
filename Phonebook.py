@@ -31,13 +31,13 @@ while True:
         else:
             print(f"Абонент {caller} в справочнике не найден")
     elif command =="export":
-        with open ("/Users/viktor/Desktop/Learn/GeekBrains/5. Python/PhoneBook/phonebook_Viktor.json", "w", encoding="utf-8") as outfile:
-            json.dump(phonebook, outfile, indent=4)#через dump "перегоняем" из Python в строку JSON и кладем всю эту иторию в outfile
+        with open ("/Users/viktor/Desktop/Learn/GeekBrains/5. Python/PhoneBook/phonebook_Viktor.json", "w") as outfile:
+            json.dump(phonebook, outfile, indent=4)
             print("Файл успешно экспортирован")
     elif command =="import": 
-        with open ("/Users/viktor/Desktop/Learn/GeekBrains/5. Python/PhoneBook/phonebook_Viktor.json", "r", encoding="utf-8") as inputfile:
+        with open ("/Users/viktor/Desktop/Learn/GeekBrains/5. Python/PhoneBook/phonebook_Viktor.json", "r") as inputfile:
             infjson = inputfile.read()
-            phonebook = json.loads(infjson)#через loads "перегоняем" из JSON в Python 
+            phonebook = json.loads(infjson) 
             print("Файл успешно импортирован") 
     elif command =="exit":  
         exit()
